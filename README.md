@@ -38,6 +38,13 @@ Optional arguments are allowed and transformed to export points with the default
 * Arguments are allowed to include preceding Slash-'/' but its just the same as without it, each given argument transforms to an active export point under `/exports`.  
 example:  `share1 /share2` -> `/exports/share1 /exports/share2`
 
+Override export options
+-----
+You can optionally override the export point options which default to ```rw,sync,insecure,no_subtree_check,no_root_squash``` with your own settings through the `EXPORT_OPTIONS` environment variable.
+
+* Example to squash uid and gid to 1234:
+`docker run -d --name mynfs --privileged -e EXPORT_OPTIONS='rw,sync,insecure,no_subtree_check,all_squash,anonuid=1234,anongid=1234' erezhorev/dockerized_nfs_server`
+
 Stop server
 -----
 Run: **stop.sh**     (or `docker stop mynfs ; docker rm mynfs`).  
@@ -66,5 +73,4 @@ The nfs service of the docker container relies on the kernel of the native host 
 General Info
 =====
 * Based on ubuntu nfs-kernel-server.
-* Current export point options are hard coded and consist of the following: ```rw,sync,insecure,no_subtree_check,no_root_squash```
 * [_Docker hub reference_](https://hub.docker.com/r/erezhorev/dockerized_nfs_server/)
